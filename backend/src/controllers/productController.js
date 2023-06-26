@@ -8,13 +8,14 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
   let user = req.user.id;
   let productImage = await aws.uploadFile(req.files[0]);
 
-  const { title, description, price } = req.body;
+  const { title, description, price ,stock} = req.body;
   const product = await productModel.create({
     user,
     title,
     description,
     price,
     productImage,
+    stock
   });
 
   res.status(201).json({

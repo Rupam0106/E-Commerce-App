@@ -20,6 +20,12 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please Provide Product Image"],
     },
+    stock: {
+      type: Number,
+      required: [true, "Please Enter product Stock"],
+      maxLength: [4, "Stock cannot exceed 4 characters"],
+      default: 1,
+    },
     deletedAt: {
       type: Date,
       default: null,
