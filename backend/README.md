@@ -51,7 +51,7 @@
 
 ## User APIs
 
-### POST /register
+### POST http://localhost:4000/api/v1/user/register
 
 - Create a user document from request body. Request body must contain image.
 - Save password in encrypted format. (used bcryptjs)
@@ -76,7 +76,7 @@
 }
 ```
 
-### POST /login
+### POST http://localhost:4000/api/v1/user/login
 
 - Allow an user to login with their email and password.
 - **Response format**
@@ -100,7 +100,7 @@
 }
 ```
 
-### GET /logout
+### GET http://localhost:4000/api/v1/user/logout
 
 - logout user if Only the user login
 - **Response format**
@@ -111,7 +111,7 @@
 { "sucess": true, "message": "Logged Out Successfully" }
 ```
 
-### POST /password/forgot
+### POST http://localhost:4000/api/v1/user/password/forgot
 
 - User can forgot the password using their Email_id
 - **Response format**
@@ -122,9 +122,9 @@
 { "success": true, "message": "Email sent to rupam@gmail.com successfully" }
 ```
 
-### PUT /password/reset/:token
+### PUT http://localhost:4000/api/v1/user/password/reset/:token
 
-- User can reset the password using put the confirm password and password.
+- User can reset the password and put the new confirm password and password.
 - **Response format**
   - _**On success**_ - Return HTTP status 200. The response should be a JSON object like [this](#successful-response-structure)
   - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
@@ -143,5 +143,40 @@
       "password": "$2a$10$Qh/Y6j6.o5jSM836yjS3POlVQU8MsC/wxqHtAZk3U4ANTwjyQILv2",
     },
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTkzYzZmMWIyNDRjYzA5YjQxZDI3NCIsImlhdCI6MTY4Nzc2NDE2MiwiZXhwIjoxNjg3ODUwNTYyfQ.goU1Brt18EX6ewxmXMdejoC3cGf0gHwsoiHhmGa-0B4",
+}
+```
+
+### GET http://localhost:4000/api/v1/user/user/me
+
+- User can view their own profile.
+- **Response format**
+  - _**On success**_ - Return HTTP status 200. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+
+```yaml
+{
+    "success": true,
+    "user": {
+        "_id": "64994649e50d7959bd931f10",
+        "name": "Rupam",
+        "email": "rupam@gmail.com",
+        "avatar": "https://classroom-training-bucket.s3.ap-south-1.amazonaws.com/RupamStore/download.jpeg",
+        "createdAt": "2023-06-26T08:03:21.771Z",
+        "__v": 0
+    }
+}
+```
+
+### DELETE http://localhost:4000/api/v1/user/user/me/delete
+
+- User can delete their own profile
+- **Response format**
+  - _**On success**_ - Return HTTP status 200. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+
+```yaml
+{
+    "success": true,
+    "message": "User Deleted Successfully"
 }
 ```

@@ -132,3 +132,55 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
 
   sendToken(user, 200, res);
 });
+
+// get user details
+exports.getUserDetails = catchAsyncError(async (req, res, next) => {
+  const user = await userModel.findById(req.user.id);
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+// update User password
+exports.updatePassword = catchAsyncError(async (req, res, next) => {
+  const user = await userModel.findById(req.user.id).select("+password");
+  if (!user) {
+    return next(
+      new ErrorHandler(`User Already Deleted `, 400)
+    );
+  }
+  const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+
+  if (!isPasswordMatched) {
+    return next(new ErrorHandler("Old password is incorrect", 400));
+  }
+
+  if (req.body.newPassword !== req.body.confirmPassword) {
+    return next(new ErrorHandler("password does not match", 400));
+  }
+
+  user.password = req.body.newPassword;
+
+  await user.save();
+
+  sendToken(user, 200, res);
+});
+
+
+// Delete User
+exports.deleteUser = catchAsyncError(async (req, res, next) => {
+  const user = await userModel.findByIdAndDelete(req.user.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User does not exist with Id: ${req.user.id}`, 400)
+    );
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "User Deleted Successfully",
+  });
+});
