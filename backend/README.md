@@ -111,7 +111,7 @@
 { "sucess": true, "message": "Logged Out Successfully" }
 ```
 
-### GET /password/forgot
+### POST /password/forgot
 
 - User can forgot the password using their Email_id
 - **Response format**
@@ -122,7 +122,7 @@
 { "success": true, "message": "Email sent to rupam@gmail.com successfully" }
 ```
 
-### GET /password/reset/:token
+### PUT /password/reset/:token
 
 - User can reset the password using put the confirm password and password.
 - **Response format**
