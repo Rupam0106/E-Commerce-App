@@ -1,6 +1,7 @@
 const ErrorHandler = require("./middlewares/error");
 const express = require("express");
 const User = require("./routes/userRoute");
+const Product = require("./routes/productRoute");
 const cookie = require("cookie-parser");
 const app = express();
 const multer=require("multer")
@@ -15,6 +16,8 @@ const upload = multer();
 app.use(upload.any());
 
 app.use("/api/v1/user", User);
+app.use("/api/v1/product", Product);
+
 
 //error handle middleware
 app.use(ErrorHandler);

@@ -155,15 +155,16 @@
 
 ```yaml
 {
-    "success": true,
-    "user": {
-        "_id": "64994649e50d7959bd931f10",
-        "name": "Rupam",
-        "email": "rupam@gmail.com",
-        "avatar": "https://classroom-training-bucket.s3.ap-south-1.amazonaws.com/RupamStore/download.jpeg",
-        "createdAt": "2023-06-26T08:03:21.771Z",
-        "__v": 0
-    }
+  "success": true,
+  "user":
+    {
+      "_id": "64994649e50d7959bd931f10",
+      "name": "Rupam",
+      "email": "rupam@gmail.com",
+      "avatar": "https://classroom-training-bucket.s3.ap-south-1.amazonaws.com/RupamStore/download.jpeg",
+      "createdAt": "2023-06-26T08:03:21.771Z",
+      "__v": 0,
+    },
 }
 ```
 
@@ -175,8 +176,131 @@
   - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
 
 ```yaml
+{ "success": true, "message": "User Deleted Successfully" }
+```
+
+## Product APIs
+
+### POST http://localhost:4000/api/v1/product/new
+
+- Create a Product document from request body. Request body must contain product image.
+- **Response format**
+  - _**On success**_ - Return HTTP status 201. Also return the user document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+
+```yaml
 {
-    "success": true,
-    "message": "User Deleted Successfully"
+  "success": true,
+  "product":
+    {
+      "title": "Canon Camera 850D",
+      "description": "best camra for wedding photography",
+      "price": 80000,
+      "productImage": "https://classroom-training-bucket.s3.ap-south-1.amazonaws.com/RupamStore/canon_eos_850d_01.jpg",
+      "deletedAt": null,
+      "_id": "64996202cc0aa86de2b95947",
+      "createdAt": "2023-06-26T10:01:38.287Z",
+      "updatedAt": "2023-06-26T10:01:38.287Z",
+      "__v": 0,
+    },
 }
+```
+
+### GET http://localhost:4000/api/v1/product/all
+
+- Only Login user can view the product.
+- **Response format**
+  - _**On success**_ - Return HTTP status 200. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+
+```yaml
+{
+  "success": true,
+  "products":
+    [
+      {
+        "_id": "64996195faea92165322d3fc",
+        "title": "Canon Camera 850D",
+        "description": "best camra for wedding photography",
+        "price": 80000,
+        "productImage": "https://classroom-training-bucket.s3.ap-south-1.amazonaws.com/RupamStore/canon_eos_850d_01.jpg",
+        "deletedAt": null,
+        "createdAt": "2023-06-26T09:59:49.554Z",
+        "updatedAt": "2023-06-26T09:59:49.554Z",
+        "__v": 0,
+      },
+      {
+        "_id": "64996202cc0aa86de2b95947",
+        "title": "Canon Camera 250D",
+        "description": "best camera for wild-life photography",
+        "price": 76500,
+        "productImage": "https://classroom-training-bucket.s3.ap-south-1.amazonaws.com/RupamStore/canon_eos_250d_01.jpg",
+        "deletedAt": null,
+        "createdAt": "2023-06-26T10:01:38.287Z",
+        "updatedAt": "2023-06-26T10:01:38.287Z",
+        "__v": 0,
+      },
+    ],
+}
+```
+
+### GET http://localhost:4000/api/v1/product/:id
+
+- Get single product with their id .
+- **Response format**
+  - _**On success**_ - Return HTTP status 200. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+
+```yaml
+{
+  "success": true,
+  "product":
+    {
+      "_id": "64996195faea92165322d3fc",
+      "title": "Canon Camera 850D",
+      "description": "best camra for wedding photography",
+      "price": 80000,
+      "productImage": "https://classroom-training-bucket.s3.ap-south-1.amazonaws.com/RupamStore/canon_eos_850d_01.jpg",
+      "deletedAt": null,
+      "createdAt": "2023-06-26T09:59:49.554Z",
+      "updatedAt": "2023-06-26T09:59:49.554Z",
+      "__v": 0,
+    },
+}
+```
+
+### POST http://localhost:4000/api/v1/product/:id
+
+- User can update the product using their id;
+- **Response format**
+  - _**On success**_ - Return HTTP status 200. Also return the user document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+
+```yaml
+{
+  "success": true,
+  "product":
+    {
+      "title": "Canon Camera 850D",
+      "description": "best camra for wedding photography",
+      "price": 60000,
+      "productImage": "https://classroom-training-bucket.s3.ap-south-1.amazonaws.com/RupamStore/canon_eos_850d_01.jpg",
+      "deletedAt": null,
+      "_id": "64996202cc0aa86de2b95947",
+      "createdAt": "2023-06-26T10:01:38.287Z",
+      "updatedAt": "2023-06-26T10:01:38.287Z",
+      "__v": 0,
+    },
+}
+```
+
+### DELETE http://localhost:4000/api/v1/product/:id
+
+- User can Delete the product using their id;
+- **Response format**
+  - _**On success**_ - Return HTTP status 200. Also return the user document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+
+```yaml
+{ "success": true, "message": "Product Deleted Successfully" }
 ```
