@@ -269,7 +269,7 @@
 }
 ```
 
-### POST http://localhost:4000/api/v1/product/:id
+### PUT http://localhost:4000/api/v1/product/:id
 
 - User can update the product using their id;
 - **Response format**
