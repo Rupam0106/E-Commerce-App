@@ -72,7 +72,8 @@
       "createdAt": "2023-06-26T07:21:19.104Z",
       "__v": 0,
     },
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTkzYzZmMWIyNDRjYzA5YjQxZDI3NCIsImlhdCI6MTY4Nzc2NDA3OSwiZXhwIjoxNjg3ODUwNDc5fQ.-bX56FpAadqCDV7616ZDU3Nsfy54vihnGrpPn9Qs2QM",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OWE3Njg3ZjNiMzNlYjZmY2JmYzc1OSIsImlhdCI6MTY4Nzg2NzgxOCwiZXhwIjoxNjg3OTU0MjE4fQ.BzDAL99s6fTYAFF89zKbYHm5738nYdB1Fm3YsJAIUjg",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OWE3Njg3ZjNiMzNlYjZmY2JmYzc1OSIsImlhdCI6MTY4Nzg2NzgxOCwiZXhwIjoxNjg3ODg5NDE4fQ.0Q5Q7nec0MMKYeRumpGp5p0B0RFfadkOvspKLS04FI8",
 }
 ```
 
@@ -88,16 +89,28 @@
   "success": true,
   "user":
     {
-      "_id": "64993c6f1b244cc09b41d274",
+      "_id": "649a7687f3b33eb6fcbfc759",
       "name": "Rupam",
       "email": "rupam@gmail.com",
-      "password": "$2a$10$UMY5NnQf.giD52Lo.qjX..q6EOjTomEhfaYJyebYfIXcsjlTpBxGS",
-      "avatar": "https://classroom-training-bucket.s3.ap-south-1.amazonaws.com/RupamStore/download.jpeg",
-      "createdAt": "2023-06-26T07:21:19.104Z",
+      "password": "$2a$10$/fB/6WpqbGxmjqunPUUUBOEycMnOh6NgzlJ4f3rGHzulTTxC9Gj3W",
+      "avatar": "https://classroom-training-bucket.s3.ap-south-1.amazonaws.com/RupamStore/rupam.jpeg",
+      "createdAt": "2023-06-27T05:41:27.148Z",
       "__v": 0,
     },
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTkzYzZmMWIyNDRjYzA5YjQxZDI3NCIsImlhdCI6MTY4Nzc2NDEwMywiZXhwIjoxNjg3ODUwNTAzfQ.k_Fg819oNd9fFHqrCrv_Lb7RlhPSDcUP8q2UdEN9e38",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OWE3Njg3ZjNiMzNlYjZmY2JmYzc1OSIsImlhdCI6MTY4Nzg2NzgxOCwiZXhwIjoxNjg3OTU0MjE4fQ.BzDAL99s6fTYAFF89zKbYHm5738nYdB1Fm3YsJAIUjg",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OWE3Njg3ZjNiMzNlYjZmY2JmYzc1OSIsImlhdCI6MTY4Nzg2NzgxOCwiZXhwIjoxNjg3ODg5NDE4fQ.0Q5Q7nec0MMKYeRumpGp5p0B0RFfadkOvspKLS04FI8",
 }
+```
+
+### POST http://localhost:4000/api/v1/user/login
+
+- Generate the refresh token
+- **Response format**
+  - _**On success**_ - Return HTTP status 200. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+
+```yaml
+{ "success": true, "message": "Refresh token generated Successfully" }
 ```
 
 ### GET http://localhost:4000/api/v1/user/logout
