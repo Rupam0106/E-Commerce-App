@@ -102,7 +102,7 @@
 }
 ```
 
-### POST http://localhost:4000/api/v1/user/login
+### POST http://localhost:4000/api/v1/user/refresh-token
 
 - Generate the refresh token
 - **Response format**
