@@ -44,7 +44,6 @@ const cartSchema = mongoose.Schema(
       type: Number,
       default: 1,
       required: true,
-      // comment: 'Holds total number of items in the cart',
     },
   },
   { timestamps: true }

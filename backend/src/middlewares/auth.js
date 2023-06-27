@@ -5,8 +5,11 @@ const userModel = require("../models/userModel");
 
 exports.isAuthenticate = catchAsyncError(async (req, res, next) => {
   const { token } = req.cookies;
-  if (!token) {
-    return next(new ErrorHandler("Please Login to first !", 401));
+  const accessToken = req.headers["authorization"];
+  if (!token && !accessToken) {
+    return next(
+      new ErrorHandler("Please Login to first- No token Provided!", 401)
+    );
   }
   const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
   req.user = await userModel.findById(decodedToken.id);

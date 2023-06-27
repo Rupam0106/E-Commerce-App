@@ -5,6 +5,7 @@ const sendToken = require("../utils/jwtToken");
 const aws = require("../Aws/aws.js");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
 
 //register User
 exports.registerUser = catchAsyncError(async (req, res, next) => {
@@ -147,9 +148,7 @@ exports.getUserDetails = catchAsyncError(async (req, res, next) => {
 exports.updatePassword = catchAsyncError(async (req, res, next) => {
   const user = await userModel.findById(req.user.id).select("+password");
   if (!user) {
-    return next(
-      new ErrorHandler(`User Already Deleted `, 400)
-    );
+    return next(new ErrorHandler(`User Already Deleted `, 400));
   }
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
 
@@ -168,7 +167,6 @@ exports.updatePassword = catchAsyncError(async (req, res, next) => {
   sendToken(user, 200, res);
 });
 
-
 // Delete User
 exports.deleteUser = catchAsyncError(async (req, res, next) => {
   const user = await userModel.findByIdAndDelete(req.user.id);
@@ -182,5 +180,21 @@ exports.deleteUser = catchAsyncError(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "User Deleted Successfully",
+  });
+});
+
+//generated refresh token
+exports.refreshToken = catchAsyncError(async (req, res, next) => {
+  const refreshToken = req.cookies["token"];
+  if (!refreshToken) {
+    return res.status(401).send("Access Denied. No refresh token provided.");
+  }
+  const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
+  const accessToken = jwt.sign({ id: decoded.id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
+  res.header("Authorization", accessToken).json({
+    success: true,
+    message: "Refresh token generated Successfully",
   });
 });

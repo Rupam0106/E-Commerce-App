@@ -3,6 +3,8 @@ const express = require("express");
 const User = require("./routes/userRoute");
 const Product = require("./routes/productRoute");
 const Cart = require("./routes/cartRoute");
+const Order = require("./routes/orderRoute");
+
 
 const cookie = require("cookie-parser");
 const app = express();
@@ -20,6 +22,7 @@ app.use(upload.any());
 app.use("/api/v1/user", User);
 app.use("/api/v1/product", Product);
 app.use("/api/v1/user/cart", Cart);
+app.use("/api/v1/user/order",Order)
 
 
 

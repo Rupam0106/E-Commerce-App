@@ -7,7 +7,6 @@ const { emptyCart, updateCart, addToCart } = require("../utils/helper");
 // create a cart
 exports.createCart = catchAsyncError(async (req, res, next) => {
   const userId = req.user.id;
-  console.log(userId);
   const { productId } = req.body;
   if (!productId) {
     return next(new ErrorHandler(` ProductId is missing!`, 400));
@@ -19,13 +18,12 @@ exports.createCart = catchAsyncError(async (req, res, next) => {
   }
   // fetching user cart if already created
   const userCart = await Cart.findOne({ userId });
-  console.log(userCart);
 
   const price = product.price;
-
   req.body.totalPrice = price;
+  // setting items in body for new Card creation
+  req.body.items = { productId, quantity: 1, price: price };
   req.body.userId = userId;
-
   //if no user cart then we have to create new cart
   if (!userCart) {
     const newCart = await Cart.create(req.body);
@@ -41,7 +39,7 @@ exports.createCart = catchAsyncError(async (req, res, next) => {
   // if user already in the cart
   // getting index of the product in cart itmes array
   const ind = userCart.items.findIndex((p) => p.productId == productId);
-
+  console.log(ind);
   // the adding the details to cart if product found will increment else add new product to array
   const newCart = await addToCart(userCart, ind, req.body.items, price).save();
   res.status(201).json({
@@ -56,21 +54,19 @@ exports.createCart = catchAsyncError(async (req, res, next) => {
 //update cart
 exports.updateCartById = catchAsyncError(async (req, res, next) => {
   const { cartId, removeProduct, productId } = req.body;
-
+  const userId = req.user.id;
   // fetching cart
-  const cart = await Cart.findById(req.user.id).select("+items.price");
-
+  const cart = await Cart.findOne({ userId }).select("+items.price");
   // if cart not found
   if (!cart) {
     return next(new ErrorHandler(`The cart with this id dose not exist!`, 404));
   }
 
-  // FETCHED CART_ID AND BODY CART_ID NOT EQUAL
   if (cart._id != cartId) {
     return next(new ErrorHandler(`CartId in body is not correct!`, 400));
   }
 
-  // FINDING INDEX OF ITEM IN CART.ITEMS ARRAY
+  //finding index of the itme in cart.items in array
   const ind = cart.items.findIndex((p) => p.productId == productId);
 
   // if item not found
@@ -97,7 +93,8 @@ exports.updateCartById = catchAsyncError(async (req, res, next) => {
 
 //get cart details by id
 exports.getCartById = catchAsyncError(async (req, res, next) => {
-  const cart = await Cart.findById(req.user.id).populate("items.productId");
+  const userId = req.user.id;
+  const cart = await Cart.findOne({ userId }).populate("items.productId");
   if (!cart) {
     return next(new ErrorHandler(`Cart dose not found for this user!`, 404));
   }
@@ -117,7 +114,7 @@ exports.deleteCartById = catchAsyncError(async (req, res, next) => {
   if (!cart) {
     return next(new ErrorHandler(`No cart present with this id!`, 404));
   }
-  res.status(204).json({
-    data: null,
+  return res.status(204).json({
+    message: "Cart is Empty",
   });
 });

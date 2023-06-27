@@ -44,17 +44,17 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, 10);
 });
 
-//generating acess token
+//generating access token & refresh token
 userSchema.methods.getJWTToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+  const accessToken = jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE,
   });
 
-  //generating refresh token
-  // token.refreshToken = jwt.sign(payload, process.env.JWT_SECRET, {
-  //   expiresIn: process.env.JWT_EXPIRE_REFREASH,
-  // });
-  // return token;
+  // generating refresh token
+  const refreshToken = jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE_REFREASH,
+  });
+  return { accessToken, refreshToken };
 };
 
 // Compare Password
