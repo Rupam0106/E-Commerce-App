@@ -2,6 +2,7 @@ const catchAsyncError = require("../middlewares/catchAsyncError");
 const ErrorHandler = require("../utils/errorHandler");
 const { emptyCart } = require("../utils/helper");
 const Order = require("../models/orderModel");
+const Product = require("../models/productModel");
 const Cart = require("../models/cartModel");
 
 // create order
@@ -10,8 +11,20 @@ exports.createOrder = catchAsyncError(async (req, res, next) => {
   if (!cartId) {
     return next(new ErrorHandler(`Please send your cart id!`, 400));
   }
+
   // getting cart details using cartId
   const cart = await Cart.findById(cartId);
+
+  let itemsArr = cart.items;
+  for (let i = 0; i < itemsArr; i++) {
+    const product = await Product.findById(cart.items[i].productId);
+    if (product._id === cart.items[i].productId) {
+      product.stock -= cart.items[i].quantity;
+    }
+    await product.save();
+    console.log(product);
+  }
+
   if (!cart || !cart.totalItems) {
     return next(
       new ErrorHandler(
@@ -35,7 +48,7 @@ exports.createOrder = catchAsyncError(async (req, res, next) => {
 
   res.status(201).json({
     status: true,
-    message: "Success",
+    message: "Your Order Placed Successfully",
     data: {
       order,
     },

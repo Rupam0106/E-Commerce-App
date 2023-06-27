@@ -39,7 +39,7 @@ exports.createCart = catchAsyncError(async (req, res, next) => {
   // if user already in the cart
   // getting index of the product in cart itmes array
   const ind = userCart.items.findIndex((p) => p.productId == productId);
-  console.log(ind);
+
   // the adding the details to cart if product found will increment else add new product to array
   const newCart = await addToCart(userCart, ind, req.body.items, price).save();
   res.status(201).json({
@@ -109,12 +109,14 @@ exports.getCartById = catchAsyncError(async (req, res, next) => {
 
 //delete cart by id (making all field zero)
 exports.deleteCartById = catchAsyncError(async (req, res, next) => {
-  const query = await Cart.findOne(req.params);
-  const cart = await emptyCart(query);
-  if (!cart) {
-    return next(new ErrorHandler(`No cart present with this id!`, 404));
-  }
-  return res.status(204).json({
-    message: "Cart is Empty",
+  await Cart.findByIdAndDelete(req.params.id);
+  // const query = await Cart.findOne(req.params);
+  // const cart = await emptyCart(query);
+  // if (!cart) {
+  //   return next(new ErrorHandler(`No cart present with this id!`, 404));
+  // }
+   res.status(200).json({
+    success:true,
+    message: "Cart deleted Successfully",
   });
 });
