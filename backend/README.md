@@ -219,7 +219,7 @@
 
 - Create a Product document from request body. Request body must contain product image.
 - **Response format**
-  - _**On success**_ - Return HTTP status 201. Also return the user document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On success**_ - Return HTTP status 201. Also return the product document. The response should be a JSON object like [this](#successful-response-structure)
   - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
 
 ```yaml
@@ -311,7 +311,7 @@
 
 - User can update the product using their id;
 - **Response format**
-  - _**On success**_ - Return HTTP status 200. Also return the user document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On success**_ - Return HTTP status 200. Also return the product document. The response should be a JSON object like [this](#successful-response-structure)
   - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
 
 ```yaml
@@ -337,7 +337,7 @@
 
 - User can Delete the product using their id;
 - **Response format**
-  - _**On success**_ - Return HTTP status 200. Also return the user document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On success**_ - Return HTTP status 200. Also return the suitable message. The response should be a JSON object like [this](#successful-response-structure)
   - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
 
 ```yaml
@@ -399,45 +399,235 @@
 
 ## Cart APIs
 
-### POST http://localhost:4000/api/v1/user/cart
+### POST http://localhost:4000/api/v1/user/cart/create
 
-- Create a Cart with added to particular product.
+- Create a Cart with added to particular product items.
 - **Response format**
-  - _**On success**_ - Return HTTP status 201. Also return the user document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On success**_ - Return HTTP status 201. Also return the cart document. The response should be a JSON object like [this](#successful-response-structure)
   - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
 
 ```yaml
 {
+  "status": true,
+  "message": "Success",
+  "data":
+    {
+      "newCart":
+        {
+          "_id": "649aae26c59133d97f499b5c",
+          "userId": "649a7687f3b33eb6fcbfc759",
+          "items":
+            [
+              {
+                "productId": "649a77bff3b33eb6fcbfc76c",
+                "quantity": 2,
+                "_id": "649ab2a1b23d4758fe2bd568",
+              },
+            ],
+          "totalPrice": 156000,
+          "totalQuantity": 2,
+          "totalItems": 1,
+          "createdAt": "2023-06-27T09:38:46.893Z",
+          "updatedAt": "2023-06-27T09:57:57.324Z",
+          "__v": 5,
+        },
+    },
+}
+```
+
+### GET http://localhost:4000/api/v1/user/cart/all
+
+- Get the cart details with their product.
+- **Response format**
+  - _**On success**_ - Return HTTP status 200. Also return the cart document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+
+```yaml
+{
+  "status": true,
+  "message": "Success",
+  "data":
+    {
+      "newCart":
+        {
+          "_id": "649aae26c59133d97f499b5c",
+          "userId": "649a7687f3b33eb6fcbfc759",
+          "items":
+            [
+              {
+                "productId": "649a77bff3b33eb6fcbfc76c",
+                "quantity": 2,
+                "_id": "649ab2a1b23d4758fe2bd568",
+              },
+            ],
+          "totalPrice": 156000,
+          "totalQuantity": 2,
+          "totalItems": 1,
+          "createdAt": "2023-06-27T09:38:46.893Z",
+          "updatedAt": "2023-06-27T09:57:57.324Z",
+          "__v": 5,
+        },
+    },
+}
+```
+
+### PUT http://localhost:4000/api/v1/user/cart/update
+
+- Remove the particular product.
+- **Response format**
+  - _**On success**_ - Return HTTP status 200. Also return the cart document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+
+```yaml
+{
+  "status": true,
+  "message": "Success",
+  "data":
+    {
+      "cartNew":
+        {
+          "_id": "649aae26c59133d97f499b5c",
+          "userId": "649a7687f3b33eb6fcbfc759",
+          "items":
+            [
+              {
+                "productId": "649a77bff3b33eb6fcbfc76c",
+                "quantity": 1,
+                "price": 78000,
+                "_id": "649ab2a1b23d4758fe2bd568",
+              },
+            ],
+          "totalPrice": 78000,
+          "totalQuantity": 1,
+          "totalItems": 1,
+          "createdAt": "2023-06-27T09:38:46.893Z",
+          "updatedAt": "2023-06-27T09:59:43.325Z",
+          "__v": 5,
+        },
+    },
+}
+```
+
+### DELETE http://localhost:4000/api/v1/user/cart/delete
+
+- Delete the cart.
+- **Response format**
+  - _**On success**_ - Return HTTP status 200. Also return the cart document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+
+```yaml
+{ "success": true, "message": "Cart Deleted Successfully" }
+```
+
+### Models
+
+- Order Model
+
+```yaml
+{
   {
-    "status": true,
-    "message": "Success",
-    "data":
+    userId:
       {
-        "newCart":
+        type: mongoose.Types.ObjectId,
+        ref: "User",
+        required: [true, "Please enter userId"],
+      },
+    items:
+      [
+        {
+          productId:
+            {
+              type: mongoose.Types.ObjectId,
+              ref: "Product",
+              required: [true, "Please provide product id!"],
+            },
+          quantity:
+            { type: Number, required: [true, "Please provide Qty!"], min: 1 },
+        },
+      ],
+    totalPrice: { type: Number, required: [true, "Total price required!"] },
+    totalItems: { type: Number, required: [true, "Total Item required!"] },
+
+    totalQuantity: { type: Number, required: [true, "Total qty required!"] },
+
+    cancellable: { type: Boolean, default: true },
+
+    status:
+      {
+        type: String,
+        default: "pending",
+        enum:
           {
-            "_id": "649986b081c37f54eb91fcf6",
-            "userId": "64995bb8999a6a16e12ad0a1",
-            "items":
-              [
-                {
-                  "productId": "64997eaac1ef17e23c8072f0",
-                  "quantity": 21,
-                  "_id": "649986b081c37f54eb91fcf7",
-                },
-                {
-                  "productId": "64997eaac1ef17e23c807240",
-                  "quantity": 1,
-                  "_id": "649986b081c37f54eb91fc47",
-                },
-              ],
-            "totalPrice": 1803456,
-            "totalQuantity": 22,
-            "totalItems": 2,
-            "createdAt": "2023-06-26T12:38:08.968Z",
-            "updatedAt": "2023-06-26T13:15:53.987Z",
-            "__v": 1,
+            values: ["pending", "completed", "canceled"],
+            message: 'status should be in "pending", "completed", "canceled"',
           },
       },
+    deletedAt: { type: Date },
   },
+  { timestamps: true },
+}
+```
+
+## Order APIs
+
+### POST http://localhost:4000/api/v1/user/order/create
+
+- Create a Order with their cart Id.
+- **Response format**
+  - _**On success**_ - Return HTTP status 201. Also return the order document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+
+```yaml
+{
+  "status": true,
+  "message": "Success",
+  "data":
+    {
+      "order":
+        {
+          "_id": "649a7a29f3b33eb6fcbfc788",
+          "userId": "649a7687f3b33eb6fcbfc759",
+          "items": [null],
+          "totalPrice": 178000,
+          "totalItems": 2,
+          "totalQuantity": 2,
+          "cancellable": true,
+          "status": "canceled",
+          "createdAt": "2023-06-27T05:56:57.434Z",
+          "updatedAt": "2023-06-27T07:41:40.915Z",
+          "__v": 0,
+        },
+    },
+}
+```
+
+### PUT http://localhost:4000/api/v1/user/order/cancel
+
+- Cancel the Order with their order Id.
+- **Response format**
+  - _**On success**_ - Return HTTP status 200. Also return the order document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+
+```yaml
+{
+  "status": true,
+  "message": "Success",
+  "data":
+    {
+      "order":
+        {
+          "_id": "649a7a29f3b33eb6fcbfc788",
+          "userId": "649a7687f3b33eb6fcbfc759",
+          "items": [null],
+          "totalPrice": 178000,
+          "totalItems": 2,
+          "totalQuantity": 2,
+          "cancellable": true,
+          "status": "canceled",
+          "createdAt": "2023-06-27T05:56:57.434Z",
+          "updatedAt": "2023-06-27T07:41:40.915Z",
+          "__v": 0,
+        },
+    },
 }
 ```
