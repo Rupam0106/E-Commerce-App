@@ -51,7 +51,7 @@
 
 ## User APIs
 
-### POST http://localhost:4000/api/v1/user/register
+### POST https://ecommerce-backend-xp0v.onrender.com/api/v1/user/register
 
 - Create a user document from request body. Request body must contain image.
 - Save password in encrypted format. (used bcryptjs)
@@ -77,7 +77,7 @@
 }
 ```
 
-### POST http://localhost:4000/api/v1/user/login
+### POST https://ecommerce-backend-xp0v.onrender.com/api/v1/user/login
 
 - Allow an user to login with their email and password.
 - **Response format**
@@ -102,7 +102,7 @@
 }
 ```
 
-### POST http://localhost:4000/api/v1/user/refresh-token
+### POST https://ecommerce-backend-xp0v.onrender.com/api/v1/user/refresh-token
 
 - Generate the refresh token
 - **Response format**
@@ -113,7 +113,7 @@
 { "success": true, "message": "Refresh token generated Successfully" }
 ```
 
-### GET http://localhost:4000/api/v1/user/logout
+### GET https://ecommerce-backend-xp0v.onrender.com/api/v1/user/logout
 
 - logout user if Only the user login
 - **Response format**
@@ -124,7 +124,7 @@
 { "sucess": true, "message": "Logged Out Successfully" }
 ```
 
-### POST http://localhost:4000/api/v1/user/password/forgot
+### POST https://ecommerce-backend-xp0v.onrender.com/api/v1/user/password/forgot
 
 - User can forgot the password using their Email_id
 - **Response format**
@@ -135,7 +135,7 @@
 { "success": true, "message": "Email sent to rupam@gmail.com successfully" }
 ```
 
-### PUT http://localhost:4000/api/v1/user/password/reset/:token
+### PUT https://ecommerce-backend-xp0v.onrender.com/api/v1/user/password/reset/:token
 
 - User can reset the password and put the new confirm password and password.
 - **Response format**
@@ -159,7 +159,7 @@
 }
 ```
 
-### GET http://localhost:4000/api/v1/user/user/me
+### GET https://ecommerce-backend-xp0v.onrender.com/api/v1/user/user/me
 
 - User can view their own profile.
 - **Response format**
@@ -181,7 +181,7 @@
 }
 ```
 
-### DELETE http://localhost:4000/api/v1/user/user/me/delete
+### DELETE https://ecommerce-backend-xp0v.onrender.com/api/v1/user/user/me/delete
 
 - User can delete their own profile
 - **Response format**
@@ -686,3 +686,4 @@
     }
 }
 ```
+## Postman Collection :-
