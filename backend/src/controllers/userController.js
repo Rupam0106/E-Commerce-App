@@ -195,6 +195,6 @@ exports.refreshToken = catchAsyncError(async (req, res, next) => {
   });
   res.header("Authorization", accessToken).json({
     success: true,
-    message: "Access token generated Successfully",
+    message: "New Access token generated Successfully",
   });
 });
