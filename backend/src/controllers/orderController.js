@@ -17,9 +17,9 @@ exports.createOrder = catchAsyncError(async (req, res, next) => {
   if (!cart.items.length) {
     return next(new ErrorHandler("Your Cart is Empty", 404));
   }
+
   for (let i = 0; i < cart.items.length; i++) {
     const product = await Product.findById(cart.items[i].productId);
-    console.log(product._id.toString() == cart.items[i].productId.toString());
     if (product._id.toString() == cart.items[i].productId.toString()) {
       product.stock -= cart.items[i].quantity;
     }
@@ -77,7 +77,6 @@ exports.updateOrder = catchAsyncError(async (req, res, next) => {
   }
   for (let i = 0; i < order.items.length; i++) {
     const product = await Product.findById(order.items[i].productId);
-    console.log(product._id.toString() == order.items[i].productId.toString());
     if (product._id.toString() == order.items[i].productId.toString()) {
       product.stock += order.items[i].quantity;
     }

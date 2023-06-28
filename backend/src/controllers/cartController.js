@@ -107,16 +107,3 @@ exports.getCartById = catchAsyncError(async (req, res, next) => {
   });
 });
 
-//delete cart by id (making all field zero)
-exports.deleteCartById = catchAsyncError(async (req, res, next) => {
-  await Cart.findByIdAndDelete(req.params.id);
-  // const query = await Cart.findOne(req.params);
-  // const cart = await emptyCart(query);
-  // if (!cart) {
-  //   return next(new ErrorHandler(`No cart present with this id!`, 404));
-  // }
-  res.status(200).json({
-    success: true,
-    message: "Cart deleted Successfully",
-  });
-});

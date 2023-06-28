@@ -521,17 +521,6 @@
 }
 ```
 
-### DELETE http://localhost:4000/api/v1/user/cart/delete
-
-- Delete the cart.
-- **Response format**
-  - _**On success**_ - Return HTTP status 200. Also return the cart document. The response should be a JSON object like [this](#successful-response-structure)
-  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
-
-```yaml
-{ "success": true, "message": "Cart Deleted Successfully" }
-```
-
 ### Models
 
 - Order Model
@@ -592,25 +581,34 @@
 
 ```yaml
 {
-  "status": true,
-  "message": "Success",
-  "data":
-    {
-      "order":
-        {
-          "_id": "649a7a29f3b33eb6fcbfc788",
-          "userId": "649a7687f3b33eb6fcbfc759",
-          "items": [null],
-          "totalPrice": 178000,
-          "totalItems": 2,
-          "totalQuantity": 2,
-          "cancellable": true,
-          "status": "canceled",
-          "createdAt": "2023-06-27T05:56:57.434Z",
-          "updatedAt": "2023-06-27T07:41:40.915Z",
-          "__v": 0,
-        },
-    },
+    "status": true,
+    "message": "Your Order Placed Successfully",
+    "data": {
+        "order": {
+            "userId": "649a7687f3b33eb6fcbfc759",
+            "items": [
+                {
+                    "productId": "649a777bf3b33eb6fcbfc769",
+                    "quantity": 4,
+                    "_id": "649bd8c4af1999d97fec24c5"
+                },
+                {
+                    "productId": "64996195faea92165322d3fc",
+                    "quantity": 5,
+                    "_id": "649bd8d3af1999d97fec24da"
+                }
+            ],
+            "totalPrice": 640000,
+            "totalItems": 2,
+            "totalQuantity": 9,
+            "cancellable": true,
+            "status": "pending",
+            "_id": "649bd8c4af1999d97fec24c4",
+            "createdAt": "2023-06-28T06:52:52.251Z",
+            "updatedAt": "2023-06-28T06:52:52.251Z",
+            "__v": 0
+        }
+    }
 }
 ```
 
@@ -623,24 +621,68 @@
 
 ```yaml
 {
-  "status": true,
-  "message": "Success",
-  "data":
-    {
-      "order":
-        {
-          "_id": "649a7a29f3b33eb6fcbfc788",
-          "userId": "649a7687f3b33eb6fcbfc759",
-          "items": [null],
-          "totalPrice": 178000,
-          "totalItems": 2,
-          "totalQuantity": 2,
-          "cancellable": true,
-          "status": "canceled",
-          "createdAt": "2023-06-27T05:56:57.434Z",
-          "updatedAt": "2023-06-27T07:41:40.915Z",
-          "__v": 0,
-        },
-    },
+    "status": true,
+    "message": "Success",
+    "data": {
+        "order": {
+            "_id": "649bd5de84fecc5cd9e10942",
+            "userId": "649a7687f3b33eb6fcbfc759",
+            "items": [
+                {
+                    "productId": "64996195faea92165322d3fc",
+                    "quantity": 4,
+                    "_id": "649bd5de84fecc5cd9e10943"
+                }
+            ],
+            "totalPrice": 320000,
+            "totalItems": 1,
+            "totalQuantity": 4,
+            "cancellable": true,
+            "status": "canceled",
+            "createdAt": "2023-06-28T06:40:30.732Z",
+            "updatedAt": "2023-06-28T06:45:49.496Z",
+            "__v": 0
+        }
+    }
+}
+```
+
+### PUT http://localhost:4000/api/v1/user/order/delivered
+
+- Complete the Order with their order Id.
+- **Response format**
+  - _**On success**_ - Return HTTP status 200. Also return the order document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+
+```yaml
+{
+    "status": true,
+    "message": "Order Successfully Delivered...",
+    "data": {
+        "order": {
+            "_id": "649bd8c4af1999d97fec24c4",
+            "userId": "649a7687f3b33eb6fcbfc759",
+            "items": [
+                {
+                    "productId": "649a777bf3b33eb6fcbfc769",
+                    "quantity": 4,
+                    "_id": "649bd8c4af1999d97fec24c5"
+                },
+                {
+                    "productId": "64996195faea92165322d3fc",
+                    "quantity": 5,
+                    "_id": "649bd8d3af1999d97fec24da"
+                }
+            ],
+            "totalPrice": 640000,
+            "totalItems": 2,
+            "totalQuantity": 9,
+            "cancellable": true,
+            "status": "completed",
+            "createdAt": "2023-06-28T06:52:52.251Z",
+            "updatedAt": "2023-06-28T07:00:40.392Z",
+            "__v": 0
+        }
+    }
 }
 ```
