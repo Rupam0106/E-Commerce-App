@@ -185,7 +185,7 @@ exports.deleteUser = catchAsyncError(async (req, res, next) => {
 
 //generated refresh token
 exports.refreshToken = catchAsyncError(async (req, res, next) => {
-  const refreshToken = req.cookies["token"];
+  const refreshToken = req.cookies["refreshToken"];
   if (!refreshToken) {
     return res.status(401).send("Access Denied. No refresh token provided.");
   }
@@ -195,6 +195,6 @@ exports.refreshToken = catchAsyncError(async (req, res, next) => {
   });
   res.header("Authorization", accessToken).json({
     success: true,
-    message: "Refresh token generated Successfully",
+    message: "Access token generated Successfully",
   });
 });

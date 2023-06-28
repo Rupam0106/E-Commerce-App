@@ -10,13 +10,13 @@ const sendToken = (user, statusCode, res) => {
 
   res
     .status(statusCode)
-    .cookie("token", refreshToken, options)
+    .cookie("refreshToken", refreshToken, options)
     .header("Authorization", accessToken)
     .json({
       success: true,
       user,
       accessToken,
-      refreshToken
+      refreshToken,
     });
 };
 

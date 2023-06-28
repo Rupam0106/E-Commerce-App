@@ -115,8 +115,8 @@ exports.deleteCartById = catchAsyncError(async (req, res, next) => {
   // if (!cart) {
   //   return next(new ErrorHandler(`No cart present with this id!`, 404));
   // }
-   res.status(200).json({
-    success:true,
+  res.status(200).json({
+    success: true,
     message: "Cart deleted Successfully",
   });
 });
