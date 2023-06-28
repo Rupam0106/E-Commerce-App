@@ -228,7 +228,7 @@
 
 ## Product APIs
 
-### POST http://localhost:4000/api/v1/product/new
+### POST https://ecommerce-backend-xp0v.onrender.com/api/v1/product/new
 
 - Create a Product document from request body. Request body must contain product image.
 - **Response format**
@@ -254,7 +254,7 @@
 }
 ```
 
-### GET http://localhost:4000/api/v1/product/all
+### GET https://ecommerce-backend-xp0v.onrender.com/api/v1/product/all
 
 - Only Login user can view the product.
 - **Response format**
@@ -294,7 +294,7 @@
 }
 ```
 
-### GET http://localhost:4000/api/v1/product/:id
+### GET https://ecommerce-backend-xp0v.onrender.com/api/v1/product/:id
 
 - Get single product with their id .
 - **Response format**
@@ -320,7 +320,7 @@
 }
 ```
 
-### PUT http://localhost:4000/api/v1/product/:id
+### PUT https://ecommerce-backend-xp0v.onrender.com/api/v1/product/:id
 
 - User can update the product using their id;
 - **Response format**
@@ -346,7 +346,7 @@
 }
 ```
 
-### DELETE http://localhost:4000/api/v1/product/:id
+### DELETE https://ecommerce-backend-xp0v.onrender.com/api/v1/product/:id
 
 - User can Delete the product using their id;
 - **Response format**
@@ -412,7 +412,7 @@
 
 ## Cart APIs
 
-### POST http://localhost:4000/api/v1/user/cart/create
+### POST https://ecommerce-backend-xp0v.onrender.com/api/v1/user/cart/create
 
 - Create a Cart with added to particular product items.
 - **Response format**
@@ -448,7 +448,7 @@
 }
 ```
 
-### GET http://localhost:4000/api/v1/user/cart/all
+### GET https://ecommerce-backend-xp0v.onrender.com/api/v1/user/cart/all
 
 - Get the cart details with their product.
 - **Response format**
@@ -484,7 +484,7 @@
 }
 ```
 
-### PUT http://localhost:4000/api/v1/user/cart/update
+### PUT https://ecommerce-backend-xp0v.onrender.com/api/v1/user/cart/update
 
 - Remove the particular product.
 - **Response format**
@@ -572,7 +572,7 @@
 
 ## Order APIs
 
-### POST http://localhost:4000/api/v1/user/order/create
+### POST https://ecommerce-backend-xp0v.onrender.com/api/v1/user/order/create
 
 - Create a Order with their cart Id.
 - **Response format**
@@ -612,7 +612,7 @@
 }
 ```
 
-### PUT http://localhost:4000/api/v1/user/order/cancel
+### PUT https://ecommerce-backend-xp0v.onrender.com/api/v1/user/order/cancel
 
 - Cancel the Order with their order Id.
 - **Response format**
@@ -647,7 +647,7 @@
 }
 ```
 
-### PUT http://localhost:4000/api/v1/user/order/delivered
+### PUT https://ecommerce-backend-xp0v.onrender.com/api/v1/user/order/delivered
 
 - Complete the Order with their order Id.
 - **Response format**
