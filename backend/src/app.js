@@ -1,10 +1,10 @@
 const ErrorHandler = require("./middlewares/error");
 const express = require("express");
+const cors=require("cors")
 const User = require("./routes/userRoute");
 const Product = require("./routes/productRoute");
 const Cart = require("./routes/cartRoute");
 const Order = require("./routes/orderRoute");
-
 
 const cookie = require("cookie-parser");
 const app = express();
@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.urlencoded({ extended: true }));
 const upload = multer();
 app.use(upload.any());
+app.use(cors())
 
 app.use("/api/v1/user", User);
 app.use("/api/v1/product", Product);
