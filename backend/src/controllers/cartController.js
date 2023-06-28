@@ -2,7 +2,7 @@ const catchAsyncError = require("../middlewares/catchAsyncError");
 const ErrorHandler = require("../utils/errorHandler");
 const Product = require("../models/productModel");
 const Cart = require("../models/cartModel");
-const { emptyCart, updateCart, addToCart } = require("../utils/helper");
+const { updateCart, addToCart } = require("../utils/helper");
 
 // create a cart
 exports.createCart = catchAsyncError(async (req, res, next) => {
@@ -16,6 +16,10 @@ exports.createCart = catchAsyncError(async (req, res, next) => {
   if (!product) {
     return next(new ErrorHandler(`Product not found!`, 404));
   }
+  if (product.stock > 1) {
+    return next(new ErrorHandler("Out of Stock !", 400));
+  }
+
   // fetching user cart if already created
   const userCart = await Cart.findOne({ userId });
 
@@ -106,4 +110,3 @@ exports.getCartById = catchAsyncError(async (req, res, next) => {
     },
   });
 });
-
