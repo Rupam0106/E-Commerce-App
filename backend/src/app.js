@@ -20,6 +20,9 @@ const upload = multer();
 app.use(upload.any());
 app.use(cors())
 
+const { swaggerServe, swaggerSetup } = require('./config/swagger')  
+app.use("/api-docs", swaggerServe, swaggerSetup); 
+
 app.use("/api/v1/user", User);
 app.use("/api/v1/product", Product);
 app.use("/api/v1/user/cart", Cart);

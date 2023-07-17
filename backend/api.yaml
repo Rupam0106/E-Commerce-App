@@ -1,0 +1,13 @@
+openapi: 3.0.0
+info:
+  title: Code Improve API
+  description: Optional multiline or single-line description in [Ru Solutions](http://e-rusolutions.com/help/) or HTML.
+  version: 1.0 
+
+servers:
+  - url: http://localhost:4000/
+    description:  Local server 
+  - url: https://prod.com/
+    description:  Pre Production server
+  - url: https://test.com/
+    description:  Production server
