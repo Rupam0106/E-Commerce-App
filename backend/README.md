@@ -1,7 +1,7 @@
 # Backend
 
 ## API's Documentation
-### http://localhost:4000/api-docs/
+### https://ecommerce-backend-xp0v.onrender.com/api-docs/
 
 
 ## Model
