@@ -1,0 +1,58 @@
+<div
+  class="flex justify-between items-center h-24 max-w-[1240px] mx-aurouterLink px-4 text-white"
+>
+  <h1 class="w-full text-3xl font-bold text-[#00df9a]">
+    <a routerLink="">i-Shop.</a>
+  </h1>
+  <div [ngSwitch]="menuType">
+    <ul class="flex" *ngSwitchCase="'default'">
+      <li class="p-4">
+        <a routerLink="">Home</a>
+      </li>
+      <li class="p-4">
+        <a routerLink="/about">About</a>
+      </li>
+      <li class="p-4">
+        <a routerLink="">Contact</a>
+      </li>
+      <li class="p-4">
+        <a href="#">Cart({{ cartItems }})</a>
+      </li>
+      <li class="p-4">
+        <a routerLink="/login">Login</a>
+      </li>
+    </ul>
+    <ul class="flex" *ngSwitchCase="'user'">
+      <li class="p-4">
+        <a routerLink="">Home</a>
+      </li>
+      <li class="p-4">
+        <a href="#">{{ userName | titlecase }}</a>
+      </li>
+      <li class="p-4">
+        <a [routerLink]="cartItems > 0 ? 'cart-page' : null"
+          >Cart({{ cartItems }})</a
+        >
+      </li>
+      <li class="p-4">
+        <a routerLink="my-orders">My Orders</a>
+      </li>
+      <li class="p-4">
+        <a (click)="userLogout()">Logout</a>
+      </li>
+    </ul>
+    <ul class="flex" *ngSwitchCase="'admin'">
+      <li class="p-4">
+        <a routerLink="">Dashboard</a>
+      </li>
+      <li class="p-4">
+        <a routerLink="/products">Add Product</a>
+      </li>
+      <li class="p-4">
+        <a href="#">{{ adminName | titlecase }}</a>
+      </li>
+      <li class="p-4"></li>
+      <li><a (click)="adminLogout()">Logout</a></li>
+    </ul>
+  </div>
+</div>
