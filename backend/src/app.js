@@ -19,10 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 const upload = multer();
 app.use(upload.any());
 app.use(
-  cors({
-    credentials: true,
-    origin: ["http://localhost:4200"] || ["http://localhost:3000"] ,
-  })
+  cors()
 );
 
 const { swaggerServe, swaggerSetup } = require("./config/swagger");
