@@ -1,5 +1,5 @@
 const express = require("express");
-const { isAuthenticate } = require("../middlewares/auth");
+const { isAuthenticate, authorizeRoles } = require("../middlewares/auth");
 const {
   getAllProduct,
   createProduct,
@@ -10,11 +10,13 @@ const {
 const router = express.Router();
 
 router.route("/all").get(getAllProduct);
-router.route("/new").post(isAuthenticate, createProduct);
+router
+  .route("/new")
+  .post(isAuthenticate, authorizeRoles("admin"), createProduct);
 router
   .route("/:id")
-  .put(updateProduct)
-  .delete(deleteProduct)
+  .put(authorizeRoles("admin"), updateProduct)
+  .delete(authorizeRoles("admin"), deleteProduct)
   .get(getSingleProduct);
 
 module.exports = router;
