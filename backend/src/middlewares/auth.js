@@ -5,7 +5,7 @@ const userModel = require("../models/userModel");
 
 exports.isAuthenticate = catchAsyncError(async (req, res, next) => {
   const { refreshToken } = req.cookies;
-  const accessToken = req.headers["authorization"];
+  const accessToken = token = req.headers.access_token;
   if (!refreshToken || !accessToken) {
     return next(new ErrorHandler("Session Expired please login in Again", 401));
   }
