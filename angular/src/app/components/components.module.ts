@@ -11,6 +11,8 @@ import { LoadingComponent } from './partials/loading/loading.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { AddProductComponent } from './admin/add-product/add-product.component';
 import { UpdateProductComponent } from './admin/update-product/update-product.component';
+import { HeroComponent } from './partials/hero/hero.component';
+import { ProductsComponent } from './pages/products/products.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { UpdateProductComponent } from './admin/update-product/update-product.co
     ContactComponent,
     AddProductComponent,
     UpdateProductComponent,
+    HeroComponent,
+    ProductsComponent,
   ],
   exports: [
     HomeComponent,

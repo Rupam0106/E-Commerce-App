@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { map } from 'rxjs';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/shared/models/Product';
 
@@ -13,9 +14,9 @@ export class HomeComponent {
   constructor(private productService: ProductService) {}
 
   ngOnInit() {
-    this.productService.productList().subscribe((res) => {
-      console.log(res);
-      this.Products = res;
+    this.productService.productList().subscribe((data) => {
+      this.Products = data;
+      console.log(this.Products);
     });
   }
 }

@@ -5,8 +5,8 @@ const userModel = require("../models/userModel");
 
 exports.isAuthenticate = catchAsyncError(async (req, res, next) => {
   const { refreshToken } = req.cookies;
-  const accessToken =req.headers.access_token;
-  if (!refreshToken || !accessToken) {
+  const accessToken = req.headers["authorization"];
+  if (!accessToken) {
     return next(new ErrorHandler("Session Expired please login in Again", 401));
   }
   const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET);
